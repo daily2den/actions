@@ -25,4 +25,5 @@ jobs:
       - name: Init
         id: init
         run: terraform init
-        run: ls -la
+
+      - run: ls -la
