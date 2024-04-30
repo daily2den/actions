@@ -21,7 +21,9 @@ jobs:
 
       - uses: actions/cache@v4
         with:
-          path: .terraform
+          path: |
+            .terraform
+            .terraform.lock.hcl
           key: terraform-init-dir
 
       - name: Init
@@ -44,7 +46,9 @@ jobs:
 
       - uses: actions/cache/restore@v4
         with:
-          path: .terraform
+          path: |
+            .terraform
+            .terraform.lock.hcl
           key: terraform-init-dir
 
       - name: Plan
@@ -65,7 +69,9 @@ jobs:
 
       - uses: actions/cache/restore@v4
         with:
-          path: .terraform
+          path: |
+            .terraform
+            .terraform.lock.hcl
           key: terraform-init-dir
 
       - run: ls -la
