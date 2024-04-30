@@ -133,7 +133,9 @@ jobs:
         run: terraform apply -no-color -auto-approve terraform_plan.tfplan | tee terraform_apply.txt
 
       - name: Terraform apply summary
-        uses: sgametrio/terraform-summary-action@main
-        with:
-          log-file: terraform_apply.txt
-          title: Terraform apply summary
+        id: apply_summary
+        run: |
+          {
+            awk '/::debug::stdout:/{ next } /Apply complete!/ { print "## " $0; exit }' terraform_apply.txt
+            awk '/::debug::stdout:/{ next } /compute.amazonaws.com/ {print "- [" $1 "](http://" $3 ")"}' apply.txt | sed 's/"//g'
+          } >> ${GITHUB_STEP_SUMMARY}
