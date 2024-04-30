@@ -59,7 +59,7 @@ jobs:
 
       - name: Plan
         id: plan
-        run: terraform plan -input=false -no-color -out=terraform_plan.tfplan
+        run: terraform plan -input=false -no-color -out=terraform_plan.tfplan | tee terraform_plan.txt
 
       - uses: actions/cache@v4
         with:
@@ -68,6 +68,12 @@ jobs:
             .terraform.lock.hcl
             terraform_plan.tfplan
           key: terraform-init-dir
+
+      - name: Terraform plan summary
+        uses: sgametrio/terraform-summary-action@main
+        with:
+          log-file: terraform-plan.txt
+          title: Terraform plan summary
 
   Terraform-Apply:
     needs: Terraform-Plan
@@ -95,5 +101,10 @@ jobs:
 
       - name: Apply
         id: apply
-        run: terraform apply -no-color -auto-approve terraform_plan.tfplan
+        run: terraform apply -no-color -auto-approve terraform_plan.tfplan | tee terraform_appy.txt
 
+      - name: Terraform apply summary
+        uses: sgametrio/terraform-summary-action@main
+        with:
+          log-file: terraform-apply.txt
+          title: Terraform apply summary
