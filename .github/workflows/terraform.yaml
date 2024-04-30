@@ -7,6 +7,8 @@ on:
     branches:
       - main
 
+on: workflow_dispatch
+
 jobs:
 
   Terraform-Init:
