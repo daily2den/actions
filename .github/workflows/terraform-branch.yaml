@@ -72,7 +72,7 @@ jobs:
       - name: Terraform plan summary
         uses: sgametrio/terraform-summary-action@main
         with:
-          log-file: terraform-plan.txt
+          log-file: terraform_plan.txt
           title: Terraform plan summary
 
   Terraform-Apply:
@@ -101,10 +101,10 @@ jobs:
 
       - name: Apply
         id: apply
-        run: terraform apply -no-color -auto-approve terraform_plan.tfplan | tee terraform_appy.txt
+        run: terraform apply -no-color -auto-approve terraform_plan.tfplan | tee terraform_apply.txt
 
       - name: Terraform apply summary
         uses: sgametrio/terraform-summary-action@main
         with:
-          log-file: terraform-apply.txt
+          log-file: terraform_apply.txt
           title: Terraform apply summary
