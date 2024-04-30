@@ -38,8 +38,37 @@ jobs:
 
       - run: ls -la
 
-  Terraform-Plan:
+  Terraform-Validate:
     needs: Terraform-Init
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: actions/cache/restore@v4
+        with:
+          path: |
+            .terraform
+            .terraform.lock.hcl
+          key: terraform-init-dir
+
+      - name: Validate
+        id: validate
+        run: |
+          terraform validate -no-color
+          if [ $? -ne 0 ]; then
+            echo "## :bangbang: Validation failed.  Check the logs" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## :white_check_mark: Success! The configuration is valid." >> $GITHUB_STEP_SUMMARY
+          fi
+
+  Terraform-Plan:
+    needs: Terraform-Validate
     runs-on: ubuntu-latest
     steps:
 
