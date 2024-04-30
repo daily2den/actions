@@ -137,5 +137,8 @@ jobs:
         run: |
           {
             echo '## Terraform apply summary'
+            awk '($0 ~ "Apply complete!"){for(i=3;i<NF;i++)printf $i " ";printf $NF}' terraform_apply.txt
+            echo "<details><summary>Expand for Terraform apply full output</summary><p>"
             awk 'BEGIN{to_print=1};($0 ~ "Apply complete!"){exit 0};(to_print == 1){print $0}' terraform_apply.txt
+            echo "</p></details>"
           } >> ${GITHUB_STEP_SUMMARY}
