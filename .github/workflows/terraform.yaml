@@ -48,12 +48,17 @@ jobs:
       - run: ls -la .terraform
 
   Terraform-Apply:
-    needs: Terrafor
+    needs: Terraform-Plan
     runs-on: ubuntu-latest
     steps:
 
       - uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.5.7
+
+      - uses: actions/cache/restore@v4
+        with:
+          path: .terraform
+          key: terraform-init-dir
 
       - run: ls -la
