@@ -1,0 +1,27 @@
+name: Terraform workflow
+run-name: Terraform plan workflow
+env:
+  TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Terraform-Plan:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - run: ls -la
+
+      - run: printenv
+
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.5.7
+
+      - name: Init
+        id: init
+        run: terraform init
