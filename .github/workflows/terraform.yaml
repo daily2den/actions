@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: hashicorp/setup-terraform@v1
+      - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.7
 
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: hashicorp/setup-terraform@v1
+      - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.7
 
@@ -53,7 +53,15 @@ jobs:
 
       - name: Plan
         id: plan
-        run: terraform plan
+        run: terraform plan -input=false -no-color -out=terraform_plan.tfplan
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .terraform
+            .terraform.lock.hcl
+            terraform_plan.tfplan
+          key: terraform-init-dir
 
   Terraform-Apply:
     needs: Terraform-Plan
@@ -62,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: hashicorp/setup-terraform@v1
+      - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.7
 
@@ -74,6 +82,12 @@ jobs:
           path: |
             .terraform
             .terraform.lock.hcl
+            terraform_plan.tfplan
           key: terraform-init-dir
 
       - run: ls -la
+
+      - name: Apply
+        id: apply
+        run: terraform apply -no-color -auto-approve terraform_plan.tfplan
+
