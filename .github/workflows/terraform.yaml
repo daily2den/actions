@@ -44,8 +44,9 @@ jobs:
           path: .terraform
           key: terraform-init-dir
 
-      - run: ls -la
-      - run: ls -la .terraform
+      - name: Plan
+        id: plan
+        run: terraform plan
 
   Terraform-Apply:
     needs: Terraform-Plan
