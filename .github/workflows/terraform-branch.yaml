@@ -98,11 +98,16 @@ jobs:
             terraform_plan.tfplan
           key: terraform-init-dir
 
-      - name: Terraform plan summary
-        uses: sgametrio/terraform-summary-action@main
-        with:
-          log-file: terraform_plan.txt
-          title: Terraform plan summary
+      - name: Terraform apply summary
+        id: plan_summary
+        run: |
+          {
+            echo '## Terraform plan summary'
+            awk '$0 ~ "Plan:"){print $0}' terraform_plan.txt
+            echo "<details><summary>Expand for Terraform plan full output</summary><p>"
+            awk 'BEGIN{to_print=0};($0 ~ "Terraform will perform"){to_print=1};($0 ~ "Plan:"){exit 0};(to_print == 1){print $0}' terraform_plan.txt
+            echo "</p></details>"
+          } >> ${GITHUB_STEP_SUMMARY}
 
   Terraform-Apply:
     needs: Terraform-Plan
