@@ -137,5 +137,5 @@ jobs:
         run: |
           {
             awk '/::debug::stdout:/{ next } /Apply complete!/ { print "## " $0; exit }' terraform_apply.txt
-            awk '/::debug::stdout:/{ next } /compute.amazonaws.com/ {print "- [" $1 "](http://" $3 ")"}' apply.txt | sed 's/"//g'
+            awk '/::debug::stdout:/{ next } /compute.amazonaws.com/ {print "- [" $1 "](http://" $3 ")"}' terraform_apply.txt | sed 's/"//g'
           } >> ${GITHUB_STEP_SUMMARY}
