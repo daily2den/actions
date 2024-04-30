@@ -57,6 +57,8 @@ jobs:
 
   Terraform-Apply:
     needs: Terraform-Plan
+    environment:
+      name: manual-approve
     runs-on: ubuntu-latest
     steps:
 
