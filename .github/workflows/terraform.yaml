@@ -7,7 +7,7 @@ on:
     branches:
       - main
 jobs:
-  Terraform-Plan:
+  Terraform-Init:
     runs-on: ubuntu-latest
     steps:
 
@@ -25,3 +25,4 @@ jobs:
       - name: Init
         id: init
         run: terraform init
+        run: ls -la
