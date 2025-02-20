@@ -15,7 +15,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: list dir
+        run: |
+          ls -la
+      
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: list dir
+        run: |
+          ls -la
 
       - name: Lint Pull Request
         uses: mr-linter/mr-linter-ga@v0.2.0
