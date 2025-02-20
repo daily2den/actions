@@ -10,7 +10,7 @@ on:
       - edited
 
 env:
-  LINKER_FILES_LIST: "test.yaml test2.yaml"
+  LINTER_FILES_LIST: "'*.yml' '*.yaml'"
 
 jobs:
   build:
@@ -26,4 +26,4 @@ jobs:
           ls -la
 
       - name: Lint Pull Request
-        run: yamllint --strict "${LINTER_FILES_LIST}"
+        run: yamllint --strict "$(git ls-files $LINTER_FILES_LIST --exclude-standard)"
