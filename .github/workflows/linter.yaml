@@ -10,7 +10,7 @@ on:
       - edited
 
 env:
-  LINTER_FILES_LIST: "'*.yml' '*.yaml'"
+  LINTER_FILES_LIST: "*.yml *.yaml"
 
 jobs:
   build:
