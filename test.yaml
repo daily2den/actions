@@ -7,3 +7,4 @@ main:
     param2: 22
   multi:
     multiple: 'Yes'
+    single: 'No'
