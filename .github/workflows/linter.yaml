@@ -26,4 +26,4 @@ jobs:
           ls -la
 
       - name: Lint Pull Request
-        run: yamllint --format github "$(git ls-files --exclude=* '*.yml' '*.yaml')"
+        run: yamllint --format github $(git ls-files --exclude=* '*.yml' '*.yaml')
