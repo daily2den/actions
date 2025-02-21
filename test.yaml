@@ -1,6 +1,6 @@
 main:
   param1: 123
-  param2: Text
+  param2: Text_zero
   param3: 124
   extras:
     param1: 110
