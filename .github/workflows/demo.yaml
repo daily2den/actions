@@ -18,4 +18,4 @@ jobs:
     if: failure()
     needs: [Explore-GitHub-Actions]
     steps:      
-      - run: echo curl -H "Content-Type: application/json" -X POST -d '{"text":"Hello"}' https://test
+      - run: echo 'Workflow failed, message sent'
