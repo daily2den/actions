@@ -22,6 +22,6 @@ jobs:
   Slack-Notifications:
     runs-on: ubuntu-latest
     if: failure()
-    needs: [Explore-GitHub-Actions]
+    needs: [Explore-GitHub-Actions], Build]
     steps:
       - run: echo 'Workflow failed, message sent'
