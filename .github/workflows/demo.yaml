@@ -12,3 +12,10 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - run: ls -la
+
+  Slack-Notifications:
+    runs-on: ubuntu-latest
+    if: failure()
+    needs: [Explore-GitHub-Actions]
+    steps:      
+      - run: echo curl -H "Content-Type: application/json" -X POST -d '{"text":"Hello"}' https://test
