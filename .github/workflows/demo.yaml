@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - demo
+
 jobs:
 
   Explore-GitHub-Actions:
@@ -26,4 +27,6 @@ jobs:
     if: failure()
     needs: [Explore-GitHub-Actions, Build]
     steps:
-      - run: echo 'Workflow failed, message sent'
+      - run: |
+          echo 'Workflow failed, message sent'
+          curl --version
