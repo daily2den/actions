@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo 'Exit 1' && exit 1
+          echo 'Exit 1' && exit 0
 
   Slack-Notifications:
     runs-on: ubuntu-latest
