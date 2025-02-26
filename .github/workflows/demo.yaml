@@ -17,11 +17,12 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Exit 1' && exit 1
+      - run: |
+          echo 'Exit 1' && exit 1
 
   Slack-Notifications:
     runs-on: ubuntu-latest
     if: failure()
-    needs: [Explore-GitHub-Actions], Build]
+    needs: [Explore-GitHub-Actions, Build]
     steps:
       - run: echo 'Workflow failed, message sent'
